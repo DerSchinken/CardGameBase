@@ -109,7 +109,7 @@ class Hand:
         self.__check_with_rank = value
 
     def __eq__(self, other) -> bool:
-        if not hasattr(other, "hand"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         self_total_value, other_total_value = 0, 0
@@ -125,7 +125,7 @@ class Hand:
         return self_total_value == other_total_value
 
     def __gt__(self, other) -> bool:
-        if not hasattr(other, "hand"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         self_total_value, other_total_value = 0, 0
@@ -141,7 +141,7 @@ class Hand:
         return self_total_value > other_total_value
 
     def __lt__(self, other) -> bool:
-        if not hasattr(other, "hand"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         self_total_value, other_total_value = 0, 0
@@ -157,7 +157,7 @@ class Hand:
         return self_total_value < other_total_value
 
     def __ge__(self, other) -> bool:
-        if not hasattr(other, "hand"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         self_total_value, other_total_value = 0, 0
@@ -173,7 +173,7 @@ class Hand:
         return self_total_value >= other_total_value
 
     def __le__(self, other) -> bool:
-        if not hasattr(other, "hand"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         self_total_value, other_total_value = 0, 0
@@ -201,4 +201,4 @@ class Hand:
         raise StopIteration
 
     def __str__(self):
-        return ', '.join(map(lambda _: str(_), self.hand))
+        return ', '.join(map(str, self.hand))
