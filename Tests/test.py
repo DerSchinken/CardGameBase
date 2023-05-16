@@ -43,3 +43,18 @@ except TypeError:
     print(test_hand < y_hand)
 else:
     raise Exception("This shouldn't work")
+
+x = DeckConfig()
+x.add_card("123", 123, 17342382)
+x.add_card("123", 123, 17342382)
+x.add_card("123", 123, 17342382)
+x.add_card("133", 123, 17342382)
+y = DeckConfig()
+y.add_card("123", 123, 17342382)
+print(y+x, x+y, sep="\n")
+try:
+    y + 1
+except TypeError:
+    pass
+else:
+    raise Exception("This shouldn't work")
