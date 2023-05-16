@@ -30,7 +30,7 @@ class Card:
         if isinstance(other, int):
             return self.value*self.symbol_rank + other
 
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
 
         return self.value + other.value
@@ -39,19 +39,19 @@ class Card:
         if isinstance(other, int):
             return self.value + other
 
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
 
         return self.value + other.value
 
     def __eq__(self, other) -> bool:
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         return self.value == self.value and self.symbol_rank == other.symbol_rank
 
     def __gt__(self, other) -> bool:
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         if self.value == other.value:
@@ -59,7 +59,7 @@ class Card:
         return self.value > other.value
 
     def __lt__(self, other) -> bool:
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         if self.value == other.value:
@@ -67,13 +67,13 @@ class Card:
         return self.value < other.value
 
     def __ge__(self, other) -> bool:
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         return self.__gt__(other) or self.__eq__(other)
 
     def __le__(self, other) -> bool:
-        if not hasattr(other, "symbol"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
 
         return self.__lt__(other) or self.__eq__(other)
