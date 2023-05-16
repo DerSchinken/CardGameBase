@@ -1,5 +1,10 @@
 ## Hand
-These comparison operation are implemented: `<=, >=, <, >, ==`
+**Hand(deck: Deck, rules: list[str] | str = None, check_with_rank: bool)** *- Creates a Hand*     
+* `deck` - Deck from which the cards will be taken
+* `rules` - List of rules you can check with `.check_rules`; Please see [Hand Rules.md](Hand%20Rules.md)
+* `check_with_rank` (default False) - Checks cards with the symbol ranks in mind
+
+These comparison operation(s) are implemented: `<=, >=, <, >, ==, in`    
 ### Functions
 **.draw(amount: int, dont_take_away: bool)**  *- Draws a card from the deck.*
 * `amount` - Amount of cards that will be drawn from deck (always from the top of the deck)
