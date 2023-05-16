@@ -3,7 +3,7 @@ from typing import Iterable
 from . import Deck, Card
 
 class Hand:
-    def __init__(self, deck: Deck, rules: str |  bool = None, check_with_rank: bool = False):
+    def __init__(self, deck: Deck, rules: list[str] | str = None, check_with_rank: bool = False):
         """
         :param deck: Deck from which cards will be drawn
         :param rules: rules for the hand; Please see the documentation for more info!
@@ -81,6 +81,12 @@ class Hand:
                 return self.rules
 
     def get_total_value(self, symbol : str = None, with_rank: bool = False) -> int:
+        """
+        Get the value of all cards in hand
+        :param symbol: if set only cards with the given symbol are counted
+        :param with_rank: when set the value of the card is multiplied by the symbol_rank
+        :return: The sum
+        """
         _sum = 0
         if symbol:
             if with_rank:

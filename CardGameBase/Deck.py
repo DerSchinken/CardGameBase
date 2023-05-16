@@ -146,11 +146,18 @@ class Deck:
             self.cards.append(cards)
 
     def reload(self) -> None:
+        """
+        Resets the Deck to the deck_configuration
+        """
         self.cards = []
         self.__iterator = 0
         self.__create(self.deck_configuration)
 
-    def get_all_symbols(self):
+    def get_all_symbols(self) -> set[str]:
+        """
+        Returns a set of card symbols
+        :return: a set of all card symbols
+        """
         symbols = set()
         for card in self.cards:
             symbols.add(card.symbol)
