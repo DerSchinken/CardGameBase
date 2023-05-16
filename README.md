@@ -1,5 +1,9 @@
 # Card Game Base
 Create Card Games with ease
+# How  to install:
+`pip install CardGameBase`
+or
+`pip3 install CardGameBase`
 # How to use:
 ```python
 from CardGameBase.Utility import create_classic_deck
