@@ -15,12 +15,12 @@ class DeckConfig:
             ...
         }
     """
-    __deck_config: dict[tuple: list[list[int: str]]]
+    __deck_config: dict[tuple: list[list[int, str]]]
 
-    def __init__(self, deck_config: dict[tuple: list[list[int: str]]] = None):
+    def __init__(self, deck_config: dict[tuple: list[list[int, str]]] = None):
         if deck_config is None:
             deck_config = {}
-        self.__deck_config: dict[tuple: list[list[int: str]]] = deck_config
+        self.__deck_config: dict[tuple: list[list[int, str]]] = deck_config
 
     def add_card(self, symbol: str, symbol_rank: int, value: int, special_value_format: str = None) -> None:
         """
@@ -40,7 +40,7 @@ class DeckConfig:
             #    raise KeyError(f"a card with '{symbol=}', '{symbol_rank=}', '{value=}'; already exists!")
             self.__deck_config[key].append([value, special_value_format])
 
-    def get(self) -> dict[tuple: list[list[int: str]]]:
+    def get(self) -> dict[tuple: list[list[int, str]]]:
         """
         :return: gives back a deck config copy
         """
@@ -61,7 +61,16 @@ class DeckConfig:
             pickle.dump(self.__deck_config, f)
 
     def __add__(self, other):
-        raise NotImplementedError() # TODO
+        if not type(self) == type(other): # hasattr(other, "_DeckConfig__deck_config"):
+            raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
+
+        new_deck = self.__deck_config.copy()
+        for symbol, symbol_rank in other.get().keys():
+            if new_deck.get((symbol, symbol_rank)):
+                new_deck[(symbol, symbol_rank)].append(other.get()[(symbol, symbol_rank)])
+            else:
+                new_deck[(symbol, symbol_rank)] = other.get()[(symbol, symbol_rank)]
+        return new_deck
 
 
 class Deck:
