@@ -10,7 +10,7 @@ with open("requirements.txt", "r") as reqs:
 
 setup(
     name="CardGameBase",
-    version="1.0.0",
+    version="1.0.3",
     # Major version 1
     # Minor version 0
     # Maintenance version 0
@@ -23,9 +23,7 @@ setup(
     packages=find_packages(),
     install_requires=requirements,
     python_requires=">= 3.6",
-    project_urls={
-        "Source": "https://github.com/DerSchinken/CardGameBase/"
-    },
+    url="https://github.com/DerSchinken/CardGameBase/",
     keyword=[
         "Card Game",
         "Game",

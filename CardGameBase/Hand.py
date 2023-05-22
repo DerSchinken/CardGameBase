@@ -84,7 +84,7 @@ class Hand:
         """
         Get the value of all cards in hand
         :param symbol: if set only cards with the given symbol are counted
-        :param with_rank: when set the value of the card is multiplied by the symbol_rank
+        :param with_rank: when set the value of the card is multiplied by the cards symbol_rank
         :return: The sum
         """
         _sum = 0
@@ -92,6 +92,8 @@ class Hand:
             if with_rank:
                 for card in self.hand:
                     if card.symbol == symbol:
+                        _sum += card.value * card.symbol_rank
+                    elif symbol is None:
                         _sum += card.value * card.symbol_rank
                 return _sum
 
