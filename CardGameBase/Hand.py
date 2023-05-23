@@ -1,14 +1,16 @@
-from typing import Iterable
+from __future__ import annotations
 
+from typing import Iterable, List
 from . import Deck, Card
 
+
 class Hand:
-    def __init__(self, deck: Deck, rules: list[str] | str = None, check_with_rank: bool = False):
+    def __init__(self, deck: Deck, rules: List[str] | str = None, check_with_rank: bool = False):
         """
         :param deck: Deck from which cards will be drawn
         :param rules: rules for the hand; Please see the documentation for more info!
         """
-        self.hand: list[Card] = []
+        self.hand: List[Card] = []
         self.deck = deck
         self.rules = rules
         self.__iterator = 0
@@ -26,7 +28,7 @@ class Hand:
         else:
             self.hand.append(self.deck.get_card(amount, dont_take_away))
 
-    def empty(self, put_back: bool=True) -> None:
+    def empty(self, put_back: bool = True) -> None:
         """
         Removes cards from hand
 
@@ -67,7 +69,7 @@ class Hand:
                         return rule
 
                     fixed_hand = on_invalid(self.hand, rule)
-                    if not fixed_hand is None:
+                    if fixed_hand is not None:
                         self.hand = fixed_hand
                     return rule
         else:
@@ -76,11 +78,11 @@ class Hand:
                     return self.rules
 
                 fixed_hand = on_invalid(self.hand, self.rules)
-                if not fixed_hand is None:
+                if fixed_hand is not None:
                     self.hand = fixed_hand
                 return self.rules
 
-    def get_total_value(self, symbol : str = None, with_rank: bool = False) -> int:
+    def get_total_value(self, symbol: str = None, with_rank: bool = False) -> int:
         """
         Get the value of all cards in hand
         :param symbol: if set only cards with the given symbol are counted

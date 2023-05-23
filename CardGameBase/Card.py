@@ -4,12 +4,12 @@ class Card:
     """
 
     def __init__(self,
-            symbol: str,
-            symbol_rank: int,
-            value: int,
-            _format: str = "{v}{s}",
-            special_value_format: str = None
-    ):
+                 symbol: str,
+                 symbol_rank: int,
+                 value: int,
+                 _format: str = "{v}{s}",
+                 special_value_format: str = None
+                 ):
         """
         Card Base Type with comparison features
 
@@ -28,7 +28,7 @@ class Card:
 
     def __add__(self, other) -> int:
         if isinstance(other, int):
-            return self.value*self.symbol_rank + other
+            return self.value * self.symbol_rank + other
 
         if not type(self) == type(other):
             raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")

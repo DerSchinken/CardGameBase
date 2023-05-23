@@ -10,7 +10,7 @@ with open("requirements.txt", "r") as reqs:
 
 setup(
     name="CardGameBase",
-    version="1.0.3",
+    version="1.0.4",
     # Major version 1
     # Minor version 0
     # Maintenance version 0
@@ -22,7 +22,7 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     install_requires=requirements,
-    python_requires=">= 3.6",
+    python_requires=">= 3.7",
     url="https://github.com/DerSchinken/CardGameBase/",
     keyword=[
         "Card Game",
@@ -32,10 +32,10 @@ setup(
     classifiers=[
         'Intended Audience :: Developers',
 
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-        "Programming Language :: Python :: 3.10"
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11"
     ]
 )

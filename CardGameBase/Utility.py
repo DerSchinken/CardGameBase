@@ -1,5 +1,6 @@
 from . import DeckConfig, Deck
 
+
 def create_classic_deck() -> Deck:
     """
     Creates a classic deck with 52 cards of clubs, spades, diamonds and hearts (2 - Ace)

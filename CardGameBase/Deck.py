@@ -1,6 +1,8 @@
-from typing import Iterable
-from random import shuffle
+from __future__ import annotations
+
+from typing import Iterable, List, Set
 from . import Card, EmptyDeck
+from random import shuffle
 import pickle
 
 
@@ -15,12 +17,12 @@ class DeckConfig:
             ...
         }
     """
-    __deck_config: dict[tuple: list[list[int, str]]]
+    __deck_config: dict[tuple: List[List[int, str]]]
 
-    def __init__(self, deck_config: dict[tuple: list[list[int, str]]] = None):
+    def __init__(self, deck_config: dict[tuple: List[List[int, str]]] = None):
         if deck_config is None:
             deck_config = {}
-        self.__deck_config: dict[tuple: list[list[int, str]]] = deck_config
+        self.__deck_config: dict[tuple: List[List[int, str]]] = deck_config
 
     def add_card(self, symbol: str, symbol_rank: int, value: int, special_value_format: str = None) -> None:
         """
@@ -40,7 +42,7 @@ class DeckConfig:
             #    raise KeyError(f"a card with '{symbol=}', '{symbol_rank=}', '{value=}'; already exists!")
             self.__deck_config[key].append([value, special_value_format])
 
-    def get(self) -> dict[tuple: list[list[int, str]]]:
+    def get(self) -> dict[tuple: List[List[int, str]]]:
         """
         :return: gives back a deck config copy
         """
@@ -61,7 +63,7 @@ class DeckConfig:
             pickle.dump(self.__deck_config, f)
 
     def __add__(self, other):
-        if not type(self) == type(other): # hasattr(other, "_DeckConfig__deck_config"):
+        if not type(self) == type(other):  # hasattr(other, "_DeckConfig__deck_config"):
             raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
 
         new_deck = self.__deck_config.copy()
@@ -81,7 +83,7 @@ class Deck:
         if deck_configuration is None:
             deck_configuration = DeckConfig()
         self.deck_configuration = deck_configuration
-        self.cards: list[Card] = []
+        self.cards: List[Card] = []
         self.__iterator = 0
 
         self.__create(self.deck_configuration)
@@ -92,7 +94,7 @@ class Deck:
         """
         deck = deck_config.get()
         for card_symbol, card_symbol_rank in deck:
-            #print(deck[(card_symbol, card_symbol_rank)])
+            # print(deck[(card_symbol, card_symbol_rank)])
             for card_value, special_value_format in deck[(card_symbol, card_symbol_rank)]:
                 self.cards.append(Card(
                     card_symbol,
@@ -113,7 +115,7 @@ class Deck:
         while self.cards == cards_before and len(self.cards) > 1:
             shuffle(self.cards)
 
-    def get_card(self, amount: int = 1, put_to_bottom: bool = False) -> Card | list[Card]:
+    def get_card(self, amount: int = 1, put_to_bottom: bool = False) -> Card | List[Card]:
         """
         Returns the top card of the deck and removes the card from the deck
 
@@ -132,7 +134,7 @@ class Deck:
 
         return cards[0] if len(cards) == 1 else cards
 
-    def add_card(self, cards: Card | list[Card] | DeckConfig) -> None:
+    def add_card(self, cards: Card | List[Card] | DeckConfig) -> None:
         """
         Adds card(s) to bottom of the deck
 
@@ -153,7 +155,7 @@ class Deck:
         self.__iterator = 0
         self.__create(self.deck_configuration)
 
-    def get_all_symbols(self) -> set[str]:
+    def get_all_symbols(self) -> Set[str]:
         """
         Returns a set of card symbols
         :return: a set of all card symbols
