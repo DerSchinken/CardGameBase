@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import Iterable, List, Set
+from typing import Iterable, List, Set, Union
 from . import Card, EmptyDeck
 from random import shuffle
-import pickle
+import json
 
 
 class DeckConfig:
@@ -38,8 +38,6 @@ class DeckConfig:
         if not self.__deck_config.get(key):
             self.__deck_config[key] = [[value, special_value_format]]
         else:
-            # if [value, special_value_format] in self.__deck[key]:
-            #    raise KeyError(f"a card with '{symbol=}', '{symbol_rank=}', '{value=}'; already exists!")
             self.__deck_config[key].append([value, special_value_format])
 
     def get(self) -> dict[tuple: List[List[int, str]]]:
@@ -52,18 +50,18 @@ class DeckConfig:
         """
         Load deck config from file
         """
-        with open(file, "rb") as f:
-            self.__deck_config = pickle.load(f)
+        with open(file, "r") as f:
+            self.__deck_config = json.load(f)
 
     def save(self, file: str) -> None:
         """
         save deck config to file
         """
-        with open(file, "wb") as f:
-            pickle.dump(self.__deck_config, f)
+        with open(file, "w") as f:
+            json.dump(self.__deck_config, f)
 
     def __add__(self, other):
-        if not type(self) == type(other):  # hasattr(other, "_DeckConfig__deck_config"):
+        if not type(self) == type(other):
             raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
 
         new_deck = self.__deck_config.copy()
@@ -94,7 +92,6 @@ class Deck:
         """
         deck = deck_config.get()
         for card_symbol, card_symbol_rank in deck:
-            # print(deck[(card_symbol, card_symbol_rank)])
             for card_value, special_value_format in deck[(card_symbol, card_symbol_rank)]:
                 self.cards.append(Card(
                     card_symbol,
@@ -115,7 +112,7 @@ class Deck:
         while self.cards == cards_before and len(self.cards) > 1:
             shuffle(self.cards)
 
-    def get_card(self, amount: int = 1, put_to_bottom: bool = False) -> Card | List[Card]:
+    def get_card(self, amount: int = 1, put_to_bottom: bool = False) -> Union[Card, List[Card]]:
         """
         Returns the top card of the deck and removes the card from the deck
 
@@ -134,7 +131,7 @@ class Deck:
 
         return cards[0] if len(cards) == 1 else cards
 
-    def add_card(self, cards: Card | List[Card] | DeckConfig) -> None:
+    def add_card(self, cards: Union[Card, List[Card], DeckConfig]) -> None:
         """
         Adds card(s) to bottom of the deck
 
@@ -163,7 +160,6 @@ class Deck:
         symbols = set()
         for card in self.cards:
             symbols.add(card.symbol)
-        # return {card.symbol for card in self.cards}
         return symbols
 
     def __contains__(self, card: Card) -> bool:
@@ -173,10 +169,16 @@ class Deck:
         return self.cards.__iter__()
 
     def __next__(self) -> Card:
+        if self.__iterator >= len(self.cards):
+            raise StopIteration
         self.__iterator += 1
-        if self.__iterator > len(self.cards):
-            return self.cards[self.__iterator]
-        raise StopIteration
+        return self.cards[self.__iterator - 1]
 
     def __str__(self) -> str:
-        return ', '.join(map(lambda _: str(_), self.cards))
+        return ', '.join([str(card) for card in self.cards])
+
+    def __len__(self) -> int:
+        return len(self.cards)
+
+    def __getitem__(self, index: Union[int, slice]) -> Union[Card, List[Card]]:
+        return self.cards[index]

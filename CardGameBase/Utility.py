@@ -7,7 +7,7 @@ def create_classic_deck() -> Deck:
 
     :return: The Deck
     """
-    symbols = [['c', 1], ['d', 2], ['h', 3], ['s', 4]]
+    symbols = [('c', 1), ('d', 2), ('h', 3), ('s', 4)]
     deck_config = DeckConfig()
 
     for symbol, symbol_rank in symbols:

@@ -1,13 +1,16 @@
 from CardGameBase.Utility import create_classic_deck
 from CardGameBase import Hand
 
+
 def check_player_hand(hand, rule):
     print("You have too much. You lose!\n")
     init()
 
+
 def check_dealer_hand(hand, rule):
     print("Dealer has too much. You Win!\n")
     init()
+
 
 def init():
     deck.shuffle()
@@ -17,6 +20,7 @@ def init():
         for o in range(3):
             player_hand.draw(dont_take_away=True)
             dealer_hand.draw(dont_take_away=True)
+
 
 deck = create_classic_deck()
 player_hand = Hand(deck, rules="{total_value} > 21")

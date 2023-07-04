@@ -14,6 +14,7 @@ middle_field.draw(3)
 
 get_max = lambda __: max(__.get_total_value(_) for _ in ["d", "h", "s", "c"])
 
+
 def print_playing_field(show_all: bool = False) -> None:
     if show_all:
         for _i, _bot in enumerate(bots):
@@ -21,6 +22,7 @@ def print_playing_field(show_all: bool = False) -> None:
     else:
         print(middle_field, f"= {get_max(middle_field)}")
     print(player, f"= {get_max(player)}")
+
 
 def check_game():
     print_playing_field(True)

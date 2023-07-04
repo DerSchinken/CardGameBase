@@ -26,55 +26,52 @@ class Card:
         self._format = _format
         self.special_value_format = special_value_format
 
+    def _check_type(self, other):
+        if not isinstance(other, self.__class__):
+            raise NotImplementedError(f"Cannot perform operation between '{type(self)}' and '{type(other)}'")
+
     def __add__(self, other) -> int:
         if isinstance(other, int):
             return self.value * self.symbol_rank + other
 
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
+        self._check_type(other)
 
         return self.value + other.value
 
     def __radd__(self, other):
         if isinstance(other, int):
-            return self.value + other
+            return self.value * self.symbol_rank + other
 
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot add type '{type(self)}' and '{type(other)}'")
+        self._check_type(other)
 
         return self.value + other.value
 
     def __eq__(self, other) -> bool:
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
+        self._check_type(other)
 
-        return self.value == self.value and self.symbol_rank == other.symbol_rank
+        return self.value == other.value and self.symbol_rank == other.symbol_rank
 
     def __gt__(self, other) -> bool:
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
+        self._check_type(other)
 
         if self.value == other.value:
             return self.symbol_rank > other.symbol_rank
         return self.value > other.value
 
     def __lt__(self, other) -> bool:
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
+        self._check_type(other)
 
         if self.value == other.value:
             return self.symbol_rank < other.symbol_rank
         return self.value < other.value
 
     def __ge__(self, other) -> bool:
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
+        self._check_type(other)
 
         return self.__gt__(other) or self.__eq__(other)
 
     def __le__(self, other) -> bool:
-        if not type(self) == type(other):
-            raise TypeError(f"Cannot compare type '{type(self)}' against '{type(other)}'")
+        self._check_type(other)
 
         return self.__lt__(other) or self.__eq__(other)
 
