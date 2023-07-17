@@ -137,3 +137,7 @@ Tests/*.json
 
 # Twine
 .pypirc
+
+# Ruff
+.ruff_cache
+.ruff_cache/*
