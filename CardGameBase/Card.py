@@ -30,8 +30,10 @@ class Card:
 
     def _check_type(self, other):
         exceptions = ["int"]
-        if not isinstance(other, self.__class__) and not type(other).__name__ in exceptions:
-            raise NotImplementedError(f"Cannot perform operation between '{type(self).__name__}' and '{type(other).__name__}'")
+        if not isinstance(other, self.__class__) and type(other).__name__ not in exceptions:
+            raise NotImplementedError(
+                f"Cannot perform operation between '{type(self).__name__}' and '{type(other).__name__}'"
+            )
 
     def __add__(self, other) -> int:
         self._check_type(other)
