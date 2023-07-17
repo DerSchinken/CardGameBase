@@ -57,7 +57,6 @@ class DeckConfig:
         """
         save deck config to file
         """
-        print(self.__deck_config)
         with open(file, "wb") as f:
             pickle.dump(self.__deck_config, f)
 
