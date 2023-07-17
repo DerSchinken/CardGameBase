@@ -134,3 +134,6 @@ dmypy.json
 # Tests
 Tests/*.json
 # TODO move tmp files to extra folder
+
+# Twine
+.pypirc
