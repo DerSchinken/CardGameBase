@@ -10,7 +10,7 @@ on:
     branches: [ "*" ]
 
 permissions:
-  contents: read write
+  contents: write
 
 jobs:
   build:
