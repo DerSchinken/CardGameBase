@@ -11,22 +11,30 @@ class TestCardGame(unittest.TestCase):
         deck = create_classic_deck()
         
         # Assert the deck configuration matches the expected values
-        expected_deck_config = {('c', 1): [
-            [2, None], [3, None], [4, None], [5, None], [6, None], [7, None],
-            [8, None], [9, None], [10, None], [10, 'J'], [10, 'D'], [10, 'K'],
-            [11, 'A']],
-            ('d', 2): [[2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
-                       [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']],
-            ('h', 3): [[2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
-                       [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']],
-            ('s', 4): [[2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
-                       [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']]}
+        expected_deck_config = {
+            ('c', 1): [
+                [2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
+                [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']
+            ],
+            ('d', 2): [
+                [2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
+                [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']
+            ],
+            ('h', 3): [
+                [2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
+                [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']
+            ],
+            ('s', 4): [
+                [2, None], [3, None], [4, None], [5, None], [6, None], [7, None], [8, None], [9, None], [10, None],
+                [10, 'J'], [10, 'D'], [10, 'K'], [11, 'A']
+            ]
+        }
         self.assertEqual(deck.deck_configuration.get(), expected_deck_config)
 
         # Assert the string representation of the deck matches the expected value
-        expected_deck_str = "2c, 3c, 4c, 5c, 6c, 7c, 8c, 9c, 10c, Jc, Dc, Kc, Ac, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, Jd, " \
-                            "Dd, Kd, Ad, 2h, 3h, 4h, 5h, 6h, 7h, 8h, 9h, 10h, Jh, Dh, Kh, Ah, 2s, 3s, 4s, 5s, 6s, 7s, 8s, " \
-                            "9s, 10s, Js, Ds, Ks, As"
+        expected_deck_str = "2c, 3c, 4c, 5c, 6c, 7c, 8c, 9c, 10c, Jc, Dc, Kc, Ac, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, " \
+                            "10d, Jd, Dd, Kd, Ad, 2h, 3h, 4h, 5h, 6h, 7h, 8h, 9h, 10h, Jh, Dh, Kh, Ah, 2s, 3s, 4s, " \
+                            "5s, 6s, 7s, 8s, 9s, 10s, Js, Ds, Ks, As"
         self.assertEqual(str(deck), expected_deck_str)
 
     def test_hand(self):
