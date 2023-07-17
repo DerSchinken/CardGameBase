@@ -8,7 +8,8 @@ class Card:
                  symbol_rank: int,
                  value: int,
                  card_format: str = "{v}{s}",
-                 special_value_format: str = None
+                 special_value_format: str = None,
+                 calculate_with_rank: bool = False,
                  ):
         """
         Card Base Type with comparison features
@@ -16,7 +17,7 @@ class Card:
         :param symbol: card symbol (like: spades, diamond, etc.)
         :param symbol_rank: symbol rank is required for comparing 2 cards
         :param value: card value
-        :param _format: print format; {v} = value, {s} = symbol
+        :param card_format: print format; {v} = value, {s} = symbol
         :param special_value_format: if set will be printed instead of value
         """
 
@@ -25,43 +26,56 @@ class Card:
         self.value = value
         self.card_format = card_format
         self.special_value_format = special_value_format
+        self.calculate_with_rank = calculate_with_rank
 
     def _check_type(self, other):
-        if not isinstance(other, self.__class__):
+        exceptions = ["int"]
+        if not isinstance(other, self.__class__) and not type(other).__name__ in exceptions:
             raise NotImplementedError(f"Cannot perform operation between '{type(self).__name__}' and '{type(other).__name__}'")
 
     def __add__(self, other) -> int:
-        if isinstance(other, int):
-            return self.value * self.symbol_rank + other
-
         self._check_type(other)
+
+        if isinstance(other, int):
+            return self.value + other
+        if self.calculate_with_rank:
+            return self.value * self.symbol_rank + other
 
         return self.value + other.value
 
     def __radd__(self, other):
-        if isinstance(other, int):
-            return self.value * self.symbol_rank + other
-
         self._check_type(other)
 
+        if isinstance(other, int):
+            return self.value + other
+        if self.calculate_with_rank:
+            return self.value * self.symbol_rank + other
         return self.value + other.value
 
     def __eq__(self, other) -> bool:
         self._check_type(other)
 
-        return self.value == other.value and self.symbol_rank == other.symbol_rank
+        if isinstance(other, int):
+            return self.value == other
+        if self.calculate_with_rank:
+            return self.value == other.value and self.symbol_rank == other.symbol_rank
+        return self.value == other.value
 
     def __gt__(self, other) -> bool:
         self._check_type(other)
 
-        if self.value == other.value:
+        if isinstance(other, int):
+            return self.value > other
+        if self.value == other.value and self.calculate_with_rank:
             return self.symbol_rank > other.symbol_rank
         return self.value > other.value
 
     def __lt__(self, other) -> bool:
         self._check_type(other)
 
-        if self.value == other.value:
+        if isinstance(other, int):
+            return self.value < other
+        if self.value == other.value and self.calculate_with_rank:
             return self.symbol_rank < other.symbol_rank
         return self.value < other.value
 

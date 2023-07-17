@@ -24,9 +24,17 @@ class Hand:
         :param dont_take_away: Don't take the cards away from deck and put to the bottom of the deck
         """
         if amount > 1:
-            self.hand.extend(self.deck.get_card(amount, dont_take_away))
+            extend_hand = self.deck.get_card(amount, dont_take_away)
+            if self.check_with_rank:
+                for card in extend_hand:
+                    card.calculate_with_rank = True
+            self.hand.extend(extend_hand)
         else:
-            self.hand.append(self.deck.get_card(amount, dont_take_away))
+            append_hand = self.deck.get_card(amount, dont_take_away)
+            if self.check_with_rank:
+                for card in append_hand:
+                    card.calculate_with_rank = True
+            self.hand.append(append_hand)
 
     def empty(self, put_back: bool = True) -> None:
         """
@@ -35,6 +43,9 @@ class Hand:
         :param put_back: when true puts cards back to the deck
         """
         if put_back:
+            if self.check_with_rank:
+                for card in self.hand:
+                    card.calculate_with_rank = False
             self.deck.add_card(self.hand)
         self.hand = []
 
@@ -82,7 +93,7 @@ class Hand:
                     self.hand = fixed_hand
                 return self.rules
 
-    def get_total_value(self, symbol: str = None, with_rank: bool = False) -> int:
+    def get_total_value(self, symbol: str = None, with_rank: bool = None) -> int:
         """
         Get the value of all cards in hand
         :param symbol: if set only cards with the given symbol are counted
@@ -91,7 +102,7 @@ class Hand:
         """
         _sum = 0
         if symbol:
-            if with_rank:
+            if with_rank or (self.check_with_rank and with_rank is None):
                 for card in self.hand:
                     if card.symbol == symbol:
                         _sum += card.value * card.symbol_rank
@@ -104,10 +115,11 @@ class Hand:
                     _sum += card.value
             return _sum
 
-        if with_rank:
+        if with_rank or (self.check_with_rank and with_rank is None):
             for card in self.hand:
                 _sum += card.value * card.symbol_rank
             return _sum
+
         return sum(self.hand)
 
     @property
