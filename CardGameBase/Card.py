@@ -7,7 +7,7 @@ class Card:
                  symbol: str,
                  symbol_rank: int,
                  value: int,
-                 _format: str = "{v}{s}",
+                 card_format: str = "{v}{s}",
                  special_value_format: str = None
                  ):
         """
@@ -23,12 +23,12 @@ class Card:
         self.symbol = symbol
         self.symbol_rank = symbol_rank
         self.value = value
-        self._format = _format
+        self.card_format = card_format
         self.special_value_format = special_value_format
 
     def _check_type(self, other):
         if not isinstance(other, self.__class__):
-            raise NotImplementedError(f"Cannot perform operation between '{type(self)}' and '{type(other)}'")
+            raise NotImplementedError(f"Cannot perform operation between '{type(self).__name__}' and '{type(other).__name__}'")
 
     def __add__(self, other) -> int:
         if isinstance(other, int):
@@ -76,10 +76,10 @@ class Card:
         return self.__lt__(other) or self.__eq__(other)
 
     def __str__(self) -> str:
-        return self._format.format(
+        return self.card_format.format(
             v=self.value if not self.special_value_format else self.special_value_format,
             s=self.symbol
         )
 
     def __repr__(self) -> str:
-        return f"Card('{self.symbol}', '{self.symbol_rank}', '{self._format}')"
+        return f"Card('{self.symbol}', '{self.symbol_rank}', '{self.card_format}')"
