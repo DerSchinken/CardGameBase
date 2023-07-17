@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Iterable, List, Set, Union
 from . import Card, EmptyDeck
 from random import shuffle
-import json
+import pickle
 
 
 class DeckConfig:
@@ -50,15 +50,15 @@ class DeckConfig:
         """
         Load deck config from file
         """
-        with open(file, "r") as f:
-            self.__deck_config = json.load(f)
+        with open(file, "rb") as f:
+            self.__deck_config = pickle.load(f)
 
     def save(self, file: str) -> None:
         """
         save deck config to file
         """
-        with open(file, "w") as f:
-            json.dump(self.__deck_config, f)
+        with open(file, "wb") as f:
+            pickle.dump(self.__deck_config, f)
 
     def __add__(self, other):
         if not type(self) == type(other):
