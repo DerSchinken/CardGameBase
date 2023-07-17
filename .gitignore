@@ -130,3 +130,7 @@ dmypy.json
 
 # PyCharm
 .idea/
+
+# Tests
+Tests/*.json
+# TODO move tmp files to extra folder
