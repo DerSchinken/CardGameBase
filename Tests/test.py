@@ -69,3 +69,6 @@ except TypeError:
     pass
 else:
     raise Exception("This shouldn't work")
+
+x = Card("x", 5, 100)
+y = {x: "Hi"}

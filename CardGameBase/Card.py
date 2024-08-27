@@ -97,5 +97,17 @@ class Card:
             s=self.symbol
         )
 
+    def __hash__(self):
+        """
+        Use with cation when trying to use in a dict on a server environment,
+        as I cannot say if this is enough to avoid hash collision.
+        """
+        calculated_hash = hash(self.symbol_rank)
+        calculated_hash += hash(self.symbol)
+        calculated_hash += hash(self.value)
+        calculated_hash += hash(self.calculate_with_rank)
+        calculated_hash += hash(self.card_format)
+        return calculated_hash
+
     def __repr__(self) -> str:
         return f"Card('{self.symbol}', '{self.symbol_rank}', '{self.card_format}')"
