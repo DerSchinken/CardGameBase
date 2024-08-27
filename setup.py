@@ -10,10 +10,10 @@ with open("requirements.txt", "r") as reqs:
 
 setup(
     name="CardGameBase",
-    version="1.0.5",
+    version="1.0.6",
     # Major version 1
     # Minor version 0
-    # Maintenance version 5
+    # Maintenance version 6
 
     author="DerSchinken",
     maintainer="DerSchinken",
